@@ -19,6 +19,10 @@ import java.text.NumberFormat;
  */
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * Global quantity variable.
+     **/
+    int quantity = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +30,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    /**
-     * Global quantity variable.
-     **/
-    int quantity = 2;
 
     /**
      * This method is called when the order button is clicked.
