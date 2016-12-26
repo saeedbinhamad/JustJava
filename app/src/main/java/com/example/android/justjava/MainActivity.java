@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -35,10 +36,19 @@ public class MainActivity extends AppCompatActivity {
      */
     public void submitOrder(View view) {
 
+        // Grab the cream checkbox and its value.
         CheckBox CreamCheckBox = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
         boolean hasWhippedCream = CreamCheckBox.isChecked();
 
-        String orderSummary = createOrderSummary(quantity, calculatePrice(quantity, 5), hasWhippedCream);
+        // Grab the chocolate checkbox and its value.
+        CheckBox chocolateCheckBox = (CheckBox) findViewById(R.id.chocolate_checkbox);
+        boolean hasChocolate = chocolateCheckBox.isChecked();
+
+        // Grab the name EditText view and its value.
+        EditText nameInput = (EditText) findViewById(R.id.name_view);
+        String name = nameInput.getText().toString();
+
+        String orderSummary = createOrderSummary(quantity, calculatePrice(quantity, 5), hasWhippedCream, hasChocolate, name);
         displayMessage(orderSummary);
     }
 
@@ -101,9 +111,10 @@ public class MainActivity extends AppCompatActivity {
      * @param quantity        of number of coffees to order.
      * @param price           of total cost
      * @param addWhippedCream creamCheckBox value
+     * @param name            of the person who ordered.
      */
-    private String createOrderSummary(int quantity, int price, boolean addWhippedCream) {
-        String summary = "Name: Saeed" + "\nQuantity: " + quantity + "\nTotal: $" + price + "\nThank you! Please order again and again." + "\nAdd whipped cream? " + addWhippedCream;
+    private String createOrderSummary(int quantity, int price, boolean addWhippedCream, boolean addChocolate, String name) {
+        String summary = "Name: " + name + "\nQuantity: " + quantity + "\nTotal: $" + price + "\nThank you! Please order again and again." + "\nAdd Whipped Cream? " + addWhippedCream + "\nAdd Chocolate? " + addChocolate;
         return summary;
     }
 

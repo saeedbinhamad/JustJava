@@ -15,6 +15,14 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context="com.example.android.justjava.MainActivity">
 
+        <EditText
+            android:id="@+id/name_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter you name here"
+            android:inputType="text" />
+
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,6 +37,16 @@
             android:checked="false"
             android:paddingLeft="24dp"
             android:text="Whipped Cream"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textSize="16sp" />
+
+        <CheckBox
+            android:id="@+id/chocolate_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:paddingLeft="24dp"
+            android:text="Chocolate"
             android:textAppearance="?android:textAppearanceMedium"
             android:textSize="16sp" />
 
