@@ -26,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    /**
+     * Global quantity variable.
+     **/
     int quantity = 2;
 
     /**
