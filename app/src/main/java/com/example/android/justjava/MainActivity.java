@@ -10,6 +10,7 @@ package com.example.android.justjava;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 /**
@@ -33,7 +34,11 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        String orderSummary = createOrderSummary("Saeed", quantity, calculatePrice(quantity, 5));
+
+        CheckBox CreamCheckBox = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
+        boolean hasWhippedCream = CreamCheckBox.isChecked();
+
+        String orderSummary = createOrderSummary(quantity, calculatePrice(quantity, 5), hasWhippedCream);
         displayMessage(orderSummary);
     }
 
@@ -93,12 +98,12 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method creates an order summary text.
      *
-     * @param name     person who ordered.
-     * @param quantity of number of coffees to order.
-     * @param price    of total cost
+     * @param quantity        of number of coffees to order.
+     * @param price           of total cost
+     * @param addWhippedCream creamCheckBox value
      */
-    private String createOrderSummary(String name, int quantity, int price) {
-        String summary = "Name: " + name + "\nQuantity: " + quantity + "\nTotal: $" + price + "\nThank you! Please order again and again.";
+    private String createOrderSummary(int quantity, int price, boolean addWhippedCream) {
+        String summary = "Name: Saeed" + "\nQuantity: " + quantity + "\nTotal: $" + price + "\nThank you! Please order again and again." + "\nAdd whipped cream? " + addWhippedCream;
         return summary;
     }
 
