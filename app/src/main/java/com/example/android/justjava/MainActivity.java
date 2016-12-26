@@ -20,7 +20,7 @@ import java.text.NumberFormat;
 public class MainActivity extends AppCompatActivity {
 
     /**
-     * Global quantity variable.
+     * Global variables.
      **/
     int quantity = 2;
 
@@ -35,7 +35,10 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        displayPrice(quantity * 5);
+
+
+        String priceMessage = "Total: $" + calculatePrice(quantity) + "\nThank you!";
+        displayMessage(priceMessage);
     }
 
     /**
@@ -64,11 +67,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+//    /**
+//     * This method displays the given price on the screen.
+//     */
+//    private void displayPrice(int number) {
+//        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
+//        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
+//    }
     /**
-     * This method displays the given price on the screen.
+     * This method displays the given text on the screen.
      */
-    private void displayPrice(int number) {
+    private void displayMessage(String message) {
         TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
+        priceTextView.setText(message);
+    }
+
+
+    /**
+     * This method claculates the price of a given quantity of coffees.
+     */
+    private int calculatePrice(int quantity) {
+        int price = quantity * 5;
+        return price;
     }
 }
