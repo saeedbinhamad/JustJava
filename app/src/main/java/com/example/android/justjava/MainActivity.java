@@ -35,10 +35,8 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-
-
-        String priceMessage = "Total: $" + calculatePrice(quantity, 5) + "\nThank you!";
-        displayMessage(priceMessage);
+        String orderSummary = createOrderSummary("Saeed", quantity, calculatePrice(quantity, 5));
+        displayMessage(orderSummary);
     }
 
     /**
@@ -85,11 +83,26 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This method calculates the price of a given quantity of coffees.
-     * @param quantity of number of coffees to order.
+     *
+     * @param quantity    of number of coffees to order.
      * @param currentCost of the cup of coffee.
      */
     private int calculatePrice(int quantity, int currentCost) {
         int price = quantity * currentCost;
         return price;
     }
+
+    /**
+     * This method creates an order summary text.
+     *
+     * @param name     person who ordered.
+     * @param quantity of number of coffees to order.
+     * @param price    of total cost
+     */
+    private String createOrderSummary(String name, int quantity, int price) {
+        String summary = "Name: " + name + "\nQuantity: " + quantity + "\nTotal: $" + price + "\nThank you! Please order again and again.";
+        return summary;
+    }
+
+
 }
