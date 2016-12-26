@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     public void submitOrder(View view) {
 
 
-        String priceMessage = "Total: $" + calculatePrice(quantity) + "\nThank you!";
+        String priceMessage = "Total: $" + calculatePrice(quantity, 5) + "\nThank you!";
         displayMessage(priceMessage);
     }
 
@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
      * this method will increment the quantity
      */
     public void increment(View view) {
-
         quantity++;
         displayQuantity(quantity);
     }
@@ -74,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
 //        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
 //        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
 //    }
+
     /**
      * This method displays the given text on the screen.
      */
@@ -84,10 +84,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     * This method claculates the price of a given quantity of coffees.
+     * This method calculates the price of a given quantity of coffees.
+     * @param quantity of number of coffees to order.
+     * @param currentCost of the cup of coffee.
      */
-    private int calculatePrice(int quantity) {
-        int price = quantity * 5;
+    private int calculatePrice(int quantity, int currentCost) {
+        int price = quantity * currentCost;
         return price;
     }
 }
