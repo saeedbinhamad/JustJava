@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="Toppings"
+            android:text="@string/toppings"
             android:textAllCaps="true" />
 
         <CheckBox
@@ -116,7 +116,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="submitOrder"
-            android:text="Order" />
+            android:text="Order via email" />
 
     </LinearLayout>
 </ScrollView>

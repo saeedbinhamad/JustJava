@@ -7,12 +7,15 @@ package com.example.android.justjava;
  * package com.example.android.justjava;
  */
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * This app displays an order form to order coffee.
@@ -48,24 +51,46 @@ public class MainActivity extends AppCompatActivity {
         EditText nameInput = (EditText) findViewById(R.id.name_view);
         String name = nameInput.getText().toString();
 
-        String orderSummary = createOrderSummary(quantity, calculatePrice(quantity, 5), hasWhippedCream, hasChocolate, name);
-        displayMessage(orderSummary);
+        String orderSummary = createOrderSummary(quantity, calculatePrice(quantity, 5, hasWhippedCream, hasChocolate), hasWhippedCream, hasChocolate, name);
+
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Just Java order for " + name);
+        intent.putExtra(Intent.EXTRA_TEXT, orderSummary);
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+
     }
 
     /**
      * this method will increment the quantity
      */
     public void increment(View view) {
+        if (quantity == 100) {
+
+            Toast.makeText(this, "You cannot order more than 100 orders!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         quantity++;
         displayQuantity(quantity);
+
     }
 
     /**
      * this method will decrement the quantity
      */
     public void decrement(View view) {
+
+        if (quantity == 1) {
+            Toast.makeText(this, "You cannot order less than 1 order!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         quantity--;
         displayQuantity(quantity);
+
+
     }
 
     /**
@@ -85,24 +110,33 @@ public class MainActivity extends AppCompatActivity {
 //        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
 //    }
 
-    /**
-     * This method displays the given text on the screen.
-     */
-    private void displayMessage(String message) {
-        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
-        orderSummaryTextView.setText(message);
-    }
+//    /**
+//     * This method displays the given text on the screen.
+//     */
+//    private void displayMessage(String message) {
+//        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
+//        orderSummaryTextView.setText(message);
+//    }
 
 
     /**
      * This method calculates the price of a given quantity of coffees.
      *
-     * @param quantity    of number of coffees to order.
-     * @param currentCost of the cup of coffee.
+     * @param quantity        of number of coffees to order.
+     * @param basePrice       of the cup of coffee.
+     * @param addWhippedCream pass whether order has whipped cream.
+     * @param addChocolate    pass whether order has chocolate.
      */
-    private int calculatePrice(int quantity, int currentCost) {
-        int price = quantity * currentCost;
-        return price;
+    private int calculatePrice(int quantity, int basePrice, boolean addWhippedCream, boolean addChocolate) {
+        if (addWhippedCream) {
+            basePrice += 1;
+        }
+
+        if (addChocolate) {
+            basePrice += 2;
+        }
+
+        return quantity * basePrice;
     }
 
     /**
@@ -114,8 +148,8 @@ public class MainActivity extends AppCompatActivity {
      * @param name            of the person who ordered.
      */
     private String createOrderSummary(int quantity, int price, boolean addWhippedCream, boolean addChocolate, String name) {
-        String summary = "Name: " + name + "\nQuantity: " + quantity + "\nTotal: $" + price + "\nThank you! Please order again and again." + "\nAdd Whipped Cream? " + addWhippedCream + "\nAdd Chocolate? " + addChocolate;
-        return summary;
+
+        return "Name: " + name + "\nQuantity: " + quantity + "\nTotal: $" + price + "\n" + getString(R.string.thank_you) + "\nAdd Whipped Cream? " + addWhippedCream + "\nAdd Chocolate? " + addChocolate;
     }
 
 
